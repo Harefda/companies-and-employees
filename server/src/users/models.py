@@ -44,6 +44,19 @@ class User(AbstractBaseUser):
         verbose_name = ("User")
         verbose_name_plural = ("Users")
 
+    @property
+    def is_companie(self):
+        try:
+            return self.companie is not None
+        except AttributeError:
+            return False
+
+    def is_empolyee(self):
+        try:
+            return self.employee is not None
+        except AttributeError:
+            return False
+
     def __str__(self):
         return self.email
 
