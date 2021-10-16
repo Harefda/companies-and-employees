@@ -30,6 +30,7 @@ INSTALLED_APPS = [
 
     'users',
     'employees',
+    'companies',
 
     'rest_framework.authtoken',
     'rest_framework',
