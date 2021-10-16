@@ -12,5 +12,5 @@ app_name = "users"
 urlpatterns = [
     path("", include(router.urls,)),
     path("create/", UserViewSet.as_view({'post': 'create'}), name="user-create"),
-    #path("uesr/<int:pk>/", CategoryDetail.as_view(), name="user-detail")
+    path("authenticate/", UserViewSet.as_view({'post': 'authenticate'}), name="user-authenticate")
 ]

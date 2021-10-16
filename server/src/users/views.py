@@ -13,7 +13,7 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-    def create_user(self, request):
+    def create(self, request):
         data = request.POST or request.data
 
         try:
@@ -34,4 +34,21 @@ class UserViewSet(viewsets.ModelViewSet):
 
         serializer = UserSerializer(instance=user)
         return Response(serializer.data, status=201)
+
+    def authenticate(self, request):
+        data = request.POST or request.data
+
+        email = data["email"]
+        password = data["password"]
+
+        try:
+            user, token = UserToolKit.auth_user(
+                email,
+                password
+            )
+        except ValidationError as exc:
+            return Response({"error": str(exc)}, status=400)
+
+        serializer = UserSerializer(instance=user)
+        return Response(serializer.data, status=200)
     
