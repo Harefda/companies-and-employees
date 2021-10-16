@@ -2,7 +2,7 @@ from users.models import User
 from app.errors import ObjectAlreadyExists
 
 
-class CurrencyCreator:
+class UserCreator:
     def __init__(self, email, password) -> None:
         self.email = email
         self.password = password
