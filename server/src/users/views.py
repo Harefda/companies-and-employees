@@ -3,7 +3,7 @@ from users.serializers import UserSerializer
 from rest_framework import viewsets, permissions
 from rest_framework.response import Response
 
-from django.contrib.auth.models import User
+from users.models import User
 from app.errors import ObjectAlreadyExists, ValidationError
 from users.utils import UserErrorMessages
 from users.services import UserToolKit
@@ -34,8 +34,4 @@ class UserViewSet(viewsets.ModelViewSet):
 
         serializer = UserSerializer(instance=user)
         return Response(serializer.data, status=201)
-
-class create:
-    pass
-
     

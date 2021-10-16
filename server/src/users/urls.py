@@ -11,6 +11,6 @@ router.register(r"users-api", UserViewSet)
 app_name = "users"
 urlpatterns = [
     path("", include(router.urls,)),
-    path("user/create/", UserViewSet.as_view(), name="user-create"),
+    path("create/", UserViewSet.as_view({'post': 'create'}), name="user-create"),
     #path("uesr/<int:pk>/", CategoryDetail.as_view(), name="user-detail")
 ]
