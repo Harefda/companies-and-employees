@@ -1,3 +1,4 @@
+from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from users.serializers import UserSerializer
 from rest_framework import viewsets, permissions
@@ -49,6 +50,5 @@ class UserViewSet(viewsets.ModelViewSet):
         except ValidationError as exc:
             return Response({"error": str(exc)}, status=400)
 
-        serializer = UserSerializer(instance=user)
-        return Response(serializer.data, status=200)
+        return Response({"token": Token.objects.get_or_create(user=user)[0]}, status=200)
     

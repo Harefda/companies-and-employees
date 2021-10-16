@@ -23,7 +23,7 @@ class UserToolKit:
         if not user:
             qs = User.objects.filter(email=email)
             if qs.exists() and not qs.first().is_active:
-                raise ValidationError(UserErrorMessages.DISABLED_ACCOUNT_ERROR.value)
+                raise ValidationError(UserErrorMessages.DISABLED_USER_ERROR.value)
             raise ValidationError(UserErrorMessages.CREDENTIALS_ERROR.value)
 
         return user, Token.objects.get_or_create(user=user)[0]
