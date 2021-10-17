@@ -18,7 +18,7 @@ class UserToolKit:
         return user
 
     @classmethod
-    def auth_user(cls, email, password):
+    def authenticate_user(cls, email, password):
         user = authenticate(email=email, password=password)
         if not user:
             qs = User.objects.filter(email=email)

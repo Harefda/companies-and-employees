@@ -1,5 +1,7 @@
 from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
+from rest_framework.serializers import Serializer
+from users import services
 from users.serializers import UserSerializer
 from rest_framework import viewsets, permissions
 from rest_framework.response import Response
@@ -43,12 +45,13 @@ class UserViewSet(viewsets.ModelViewSet):
         password = data["password"]
 
         try:
-            user, token = UserToolKit.auth_user(
+            user, token = UserToolKit.authenticate_user(
                 email,
                 password
             )
         except ValidationError as exc:
             return Response({"error": str(exc)}, status=400)
 
-        return Response({"token": Token.objects.get_or_create(user=user)[0]}, status=200)
+        serializer = UserSerializer(instance=user)
+        return Response(serializer.data, status=201)
     
