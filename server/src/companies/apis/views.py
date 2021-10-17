@@ -20,13 +20,15 @@ class CompanyViewSet(viewsets.ModelViewSet):
         data = request.POST or request.data
 
         try:
+            user = request.user
             name = data["name"]
         except KeyError:
             return Response({"error": CompanyErrorMessages.REQUEST_FIELDS_ERROR.value}, status=400)
 
         try:
             company = CompanyToolKit.create_company(
-                name=name
+                name=name,
+                user=user
             )
         except ValidationError as exc:
             return Response({"error": str(exc)}, status=400)

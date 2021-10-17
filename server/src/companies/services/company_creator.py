@@ -7,8 +7,9 @@ from app.errors import ObjectAlreadyExists
 
 
 class CompanyCreator:
-    def __init__(self, name):
+    def __init__(self, name, user):
         self.name = name
+        self.user = user
 
     def __call__(self):
         if self.allowed_to_create:
@@ -18,7 +19,8 @@ class CompanyCreator:
 
     def create(self):
         return Company.objects.create(
-            name=self.name
+            name=self.name,
+            user=self.user
         )
 
     def allowed_to_create(self, raise_exception=True):

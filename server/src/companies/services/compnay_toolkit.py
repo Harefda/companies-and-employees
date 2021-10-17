@@ -10,9 +10,10 @@ from companies.services import (
 
 class CompanyToolKit:
     @classmethod
-    def create_company(cls, name):
+    def create_company(cls, name, user):
         company = CompanyCreator(
-            name=name
+            name=name,
+            user=user
         )()
         return company
 

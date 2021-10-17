@@ -34,6 +34,7 @@ INSTALLED_APPS = [
 
     'rest_framework.authtoken',
     'rest_framework',
+    'rest_framework_swagger',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +56,17 @@ REST_FRAMEWORK = {
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema',
 }
 
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'api_key': {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'Authorization'
+        }
+    },
+    'JSON_EDITOR' : True
+}
+
 ROOT_URLCONF = 'app.urls'
 
 AUTH_USER_MODEL = 'users.User'
@@ -71,6 +83,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+        'libraries': {  
+                'staticfiles': 'django.templatetags.static',
+                 },
         },
     },
 ]
