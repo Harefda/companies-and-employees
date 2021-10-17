@@ -1,9 +1,5 @@
-from rest_framework.authtoken.models import Token
-from rest_framework.decorators import action
-from rest_framework.serializers import Serializer
-from users import services
 from users.serializers import UserSerializer
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets
 from rest_framework.response import Response
 
 from users.models import User
@@ -23,7 +19,7 @@ class UserViewSet(viewsets.ModelViewSet):
             email = data["email"]
             password = data["password"]
         except KeyError:
-            return   Response({"error": UserErrorMessages.REQUEST_FIELDS_ERROR.value}, status=400)
+            return Response({"error": UserErrorMessages.REQUEST_FIELDS_ERROR.value}, status=400)
 
         try:
             user = UserToolKit.create_user(
