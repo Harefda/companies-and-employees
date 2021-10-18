@@ -1,5 +1,7 @@
+from django.db.models import fields
 from rest_framework import serializers
 
+from employees.models import EmployeeCompany
 from companies.models import (
     Company,
     CompanyOffice,
@@ -25,3 +27,14 @@ class CompanyOfficeSerializer(serializers.ModelSerializer):
              'company',
              'location'
          ]
+
+
+class CompanyEmployeeSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = EmployeeCompany
+        fields = [
+            'employee',
+            'company',
+            'position'
+        ]

@@ -1,15 +1,18 @@
-from rest_framework import viewsets
+from django.db.models import manager
+from rest_framework import serializers, viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser
 
 from companies.api.serializers import (
     CompanySerializer,
-    CompanyOfficeSerializer
+    CompanyOfficeSerializer,
+    CompanyEmployeeSerializer
 )
 from app.errors import ObjectAlreadyExists, ValidationError
 from companies.services import CompanyToolKit
 from companies.models import Company, CompanyOffice
 from companies.utils import CompanyErrorMessages
+from employees.models import EmployeeCompany
 
 
 class CompanyViewSet(viewsets.ModelViewSet):
@@ -52,6 +55,15 @@ class CompanyViewSet(viewsets.ModelViewSet):
             return Response({"error": CompanyErrorMessages.COMPANY_DOES_NOT_EXISTS.value}, status=400)
 
         return Response({"success": f"Company with id - {id} was deleted"})
+        
+    def get_employees(self, request):
+        try:
+            employees = EmployeeCompany.objects.filter(company=request.user.company)
+        except KeyError:
+            return Response({"error": CompanyErrorMessages.REQUEST_FIELDS_ERROR.value}, status=400)
+
+        serializer = CompanyEmployeeSerializer(instance=employees, many=True)
+        return Response(serializer.data, status=201)
 
 
 class CompanyOfficeViewSet(viewsets.ModelViewSet):

@@ -43,7 +43,7 @@ class EmployeeLanguage(models.Model):
 
 class EmployeeCompany(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE, null=True, blank=True)
-    company = models.OneToOneField(Company, on_delete=models.CASCADE, null=True, blank=True)
+    company = models.ForeignKey(Company, on_delete=models.CASCADE, null=True, blank=True)
     position = models.CharField(max_length=20, null=True, blank=True)
 
     class Meta:

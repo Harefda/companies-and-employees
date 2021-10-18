@@ -6,6 +6,7 @@ from companies.services import (
     CompanyCreator,
     CompanyOfficeCreator
 )
+from employees.models import Employee
 
 
 class CompanyToolKit:
@@ -39,4 +40,8 @@ class CompanyToolKit:
         else:
             raise CompanyOffice.DoesNotExist()
 
+    @classmethod
+    def get_company_employees(cls, company):
+        employees = Employee.objects.filter(company=company)
+        return employees
     
