@@ -9,7 +9,7 @@ router.register(r"users-api", UserViewSet)
 
 app_name = "users"
 urlpatterns = [
-    path("", include(router.urls,)),
-    path("create/", UserViewSet.as_view({'post': 'create'}), name="user-create"),
-    path("authenticate/", UserViewSet.as_view({'post': 'authenticate'}), name="user-authenticate")
+    path('', include(router.urls)),
+    path('create/', UserViewSet.as_view({'post': 'create'}), name='user-create'),
+    path('authenticate/', UserViewSet.as_view({'post': 'authenticate'}), name='user-authenticate')
 ]

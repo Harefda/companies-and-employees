@@ -1,8 +1,7 @@
-from django.http import request
-from rest_framework import serializers, viewsets
+from rest_framework import viewsets
 from rest_framework.response import Response
 
-from companies.apis.serializers import (
+from companies.api.serializers import (
     CompanySerializer,
     CompanyOfficeSerializer
 )

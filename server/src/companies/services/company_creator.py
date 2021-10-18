@@ -12,7 +12,7 @@ class CompanyCreator:
         self.user = user
 
     def __call__(self):
-        if self.allowed_to_create:
+        if self.allowed_to_create(raise_exception=True):
             return self.create()
         else:
             return False

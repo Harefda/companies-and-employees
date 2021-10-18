@@ -4,12 +4,12 @@ from users.utils import UserErrorMessages
 
 
 class UserCreator:
-    def __init__(self, email, password) -> None:
+    def __init__(self, email, password):
         self.email = email
         self.password = password
 
     def __call__(self):
-        if self.allowed_to_create:
+        if self.allowed_to_create():
             user = self.create_user()
             user.save()
         else:

@@ -25,7 +25,7 @@ class CompanyOffice(models.Model):
 
 class CompanyCollaboration(models.Model):
     collaboration_name = models.CharField(max_length=15, null=True, blank=True)
-    companies = models.ManyToManyField(Company, null=True, blank=True)
+    companies = models.ManyToManyField(Company, blank=True)
 
     def __str__(self):
         return f"<{self.collaboration_name}>"

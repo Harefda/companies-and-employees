@@ -33,6 +33,15 @@ class EmployeeSkill(models.Model):
         return f"<Skills of {self.employee.patronymic} {self.employee.name} {self.employee.surname}"
 
 
+class EmployeeLanguage(models.Model):
+    employee = models.ForeignKey(Employee, on_delete=models.CASCADE, null=True, blank=True)
+    language = models.CharField(max_length=15)
+    language_level = models.CharField(max_length=2)
+
+    def __str__(self):
+        return f"<{self.language, self.language_level, self.employee}>"
+
+
 class EmployeeCompany(models.Model):
     employee = models.ForeignKey(Employee, on_delete=models.CASCADE, null=True, blank=True)
     company = models.OneToOneField(Company, on_delete=models.CASCADE, null=True, blank=True)
