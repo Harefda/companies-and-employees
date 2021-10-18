@@ -1,5 +1,6 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
+from rest_framework.permissions import IsAdminUser
 
 from companies.api.serializers import (
     CompanySerializer,
@@ -14,6 +15,7 @@ from companies.utils import CompanyErrorMessages
 class CompanyViewSet(viewsets.ModelViewSet):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
+    permission_classes = [IsAdminUser]
 
     def create(self, request):
         data = request.POST or request.data
@@ -55,6 +57,7 @@ class CompanyViewSet(viewsets.ModelViewSet):
 class CompanyOfficeViewSet(viewsets.ModelViewSet):
     queryset = CompanyOffice.objects.all()
     serializer_class = CompanyOfficeSerializer
+    permission_classes = [IsAdminUser]
 
     def create(self, request):
         data = request.POST or request.data

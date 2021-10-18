@@ -10,14 +10,13 @@ class Employee(models.Model):
     surname = models.CharField(max_length=15)
     patronymic = models.CharField(max_length=15)
     age = models.IntegerField()
-    languages = models.CharField(max_length=50, null=True)
 
     class Meta:
         verbose_name = ("Employee")
         verbose_name_plural = ("Employees")
 
     def __str__(self):
-        return f"<Employee {self.patronymic} {self.name} {self.surname}>"
+        return f"<Employee {self.surname} {self.name} {self.patronymic}>"
 
 
 class EmployeeSkill(models.Model):
@@ -30,7 +29,7 @@ class EmployeeSkill(models.Model):
         verbose_name_plural = ("EmployeeSkills")
 
     def __str__(self):
-        return f"<Skill {self.skill} of {self.employee.patronymic} {self.employee.name} {self.employee.surname}"
+        return f"<Skill {self.skill} of {self.employee.surname} {self.employee.name} {self.employee.patronymic}"
 
 
 class EmployeeLanguage(models.Model):
@@ -39,7 +38,7 @@ class EmployeeLanguage(models.Model):
     language_level = models.CharField(max_length=2)
 
     def __str__(self):
-        return f"<{self.language, self.language_level, self.employee}>"
+        return f"<{self.language} {self.language_level} {self.employee.surname} {self.employee.name} {self.employee.patronymic}>"
 
 
 class EmployeeCompany(models.Model):
@@ -52,4 +51,4 @@ class EmployeeCompany(models.Model):
         verbose_name_plural = ("EmployeeCompanies")
 
     def __str__(self):
-        return f"<{self.employee.patronymic} {self.employee.name} {self.company} {self.position}>"
+        return f"<{self.employee.name} {self.employee.patronymic} {self.company} {self.position}>"

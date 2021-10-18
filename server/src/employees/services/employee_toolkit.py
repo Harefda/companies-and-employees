@@ -43,4 +43,15 @@ class EmployeeToolKit:
             language_level = language_level
         )
         return employee_language
-    
+
+    @classmethod
+    def create_employee_company(cls, employee, company, position):
+        if not EmployeeCompany.objects.filter(employee=employee, company=company, position=position).exists():
+            employee_job = EmployeeCompany.objects.create(
+                employee=employee,
+                company=company,
+                position=position
+            )
+            return employee_job
+        else:
+            return False

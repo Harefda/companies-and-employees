@@ -31,3 +31,24 @@ class EmployeeSkillSerializer(serializers.ModelSerializer):
             'skill',
             'skill_level'
         ]
+
+class EmployeeLanguageSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = EmployeeLanguage
+        fields = [
+            'employee',
+            'language',
+            'language_level'
+        ]
+
+
+class EmployeeCompanySerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = EmployeeCompany
+        fields = [
+            'employee',
+            'company',
+            'position'
+        ]
