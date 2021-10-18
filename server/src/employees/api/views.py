@@ -1,12 +1,16 @@
 from django.utils.decorators import sync_and_async_middleware
-from rest_framework import viewsets
+from rest_framework import serializers, status, viewsets
+import rest_framework
 from rest_framework.response import Response
 
-from employees.api.serializers import EmployeeSerializer
+from employees.api.serializers import (
+    EmployeeSerializer,
+    EmployeeSkillSerializer
+)
 from app.errors import ObjectAlreadyExists, ValidationError
 from employees.services import EmployeeToolKit, employee_toolkit
-from employees.utils import EmployyErrorMessages
-from employees.models import Employee
+from employees.utils import EmployeeErrorMessages
+from employees.models import Employee, EmployeeSkill
 
 
 class EmployeeViewSet(viewsets.ModelViewSet):
@@ -23,7 +27,7 @@ class EmployeeViewSet(viewsets.ModelViewSet):
             patronymic = data["patronymic"]
             age = data["age"]
         except KeyError:
-            return Response({"error": EmployyErrorMessages.REQUEST_FIELDS_ERROR.value}, status=400)
+            return Response({"error": EmployeeErrorMessages.REQUEST_FIELDS_ERROR.value}, status=400)
 
         try:
             employee = EmployeeToolKit.create_employee(
@@ -38,3 +42,32 @@ class EmployeeViewSet(viewsets.ModelViewSet):
         
         serializer = EmployeeSerializer(instance=employee)
         return Response(serializer.data, status=201)
+
+
+class EmployeeSkillViewSet(viewsets.ModelViewSet):
+    queryset = EmployeeSkill.objects.all()
+    serializer_class = EmployeeSkillSerializer
+
+    def create(self, request):
+        data = request.POST or request.data
+
+        try:
+            employee = request.user.employee
+            skill = data["skill"]
+            skill_level = data["skill_level"]
+        except KeyError:
+            return Response({"error": EmployeeErrorMessages.REQUEST_FIELDS_ERROR.value}, status=400)
+
+        try:
+            employee_skill = EmployeeToolKit.create_employee_skill(
+                employee=employee,
+                skill=skill,
+                skill_level=skill_level
+            )
+        except ValidationError as exc:
+            return Response({"error": str(exc)}, status=400)
+
+        serializer = EmployeeSkillSerializer(instance=employee_skill)
+        return Response(serializer.data, status=201)
+
+    

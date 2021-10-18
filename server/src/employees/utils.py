@@ -1,6 +1,7 @@
 import enum
 
 
-class EmployyErrorMessages(enum.Enum):
+class EmployeeErrorMessages(enum.Enum):
     REQUEST_FIELDS_ERROR = "REQUEST_FIELDS_ERROR"
     EMPLOYEE_DOES_NOT_EXISTS = "EMPLOYEE_DOES_NOT_EXISTS"
+    

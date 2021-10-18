@@ -1,5 +1,6 @@
 from employees.models import(
     Employee,
+    EmployeeLanguage,
     EmployeeSkill,
     EmployeeCompany
 )
@@ -24,3 +25,22 @@ class EmployeeToolKit:
             age=age,
         )()
         return employee
+
+    @classmethod
+    def create_employee_skill(cls, employee, skill, skill_level):
+        employee_skill = EmployeeSkill.objects.create(
+            employee = employee,
+            skill = skill,
+            skill_level = skill_level
+        )
+        return employee_skill
+
+    @classmethod 
+    def create_employee_language(cls, employee, language, language_level):
+        employee_language = EmployeeLanguage.objects.create(
+            employee = employee,
+            language = language,
+            language_level = language_level
+        )
+        return employee_language
+    

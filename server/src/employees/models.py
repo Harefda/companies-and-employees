@@ -17,7 +17,7 @@ class Employee(models.Model):
         verbose_name_plural = ("Employees")
 
     def __str__(self):
-        return f"<Employee {self.name, self.surname, self.patronymic}>"
+        return f"<Employee {self.patronymic} {self.name} {self.surname}>"
 
 
 class EmployeeSkill(models.Model):
@@ -30,7 +30,7 @@ class EmployeeSkill(models.Model):
         verbose_name_plural = ("EmployeeSkills")
 
     def __str__(self):
-        return f"<Skills of {self.employee.patronymic} {self.employee.name} {self.employee.surname}"
+        return f"<Skill {self.skill} of {self.employee.patronymic} {self.employee.name} {self.employee.surname}"
 
 
 class EmployeeLanguage(models.Model):
