@@ -25,6 +25,9 @@ class EmployeeViewSet(viewsets.ModelViewSet):
     serializer_class = EmployeeSerializer
 
     def create(self, request):
+        """
+        api for creating employee
+        """
         data = request.POST or request.data
 
         try:
@@ -51,6 +54,9 @@ class EmployeeViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=201)
 
     def delete(self, request, id):
+        """
+        api to delete employee
+        """
         try:
             EmployeeToolKit.delete_employee(id=id)
         except Employee.DoesNotExist:
@@ -64,6 +70,9 @@ class EmployeeSkillViewSet(viewsets.ModelViewSet):
     serializer_class = EmployeeSkillSerializer
 
     def create(self, request):
+        """
+        api for creating employee skill
+        """
         data = request.POST or request.data
 
         try:
@@ -91,6 +100,9 @@ class EmployeeLanguageViewSet(viewsets.ModelViewSet):
     serializer_class = EmployeeLanguageSerializer
 
     def create(self, request):
+        """
+        api to delete employee's language
+        """
         data = request.POST or request.data
 
         try:
@@ -118,6 +130,9 @@ class EmployeeCompanyViewSet(viewsets.ModelViewSet):
     serializer_class = EmployeeCompanySerializer
 
     def create(self, request):
+        """
+        api for assigning a job to an employee
+        """
         data = request.POST or request.data
 
         try:
