@@ -43,13 +43,7 @@ class CompanyViewSet(viewsets.ModelViewSet):
         serializer = CompanySerializer(instance=company)
         return Response(serializer.data, status=201)
 
-    def delete(self, request):
-        data = request.POST or request.data
-        try:
-            id = data["id"]
-        except KeyError:
-            return Response({"error": CompanyErrorMessages.REQUEST_FIELDS_ERROR.value}, status=400)
-
+    def delete(self, request, id):
         try:
             CompanyToolKit.delete_company(id=id)
         except Company.DoesNotExist:
