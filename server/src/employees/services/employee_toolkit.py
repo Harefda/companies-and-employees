@@ -5,6 +5,7 @@ from employees.models import(
     EmployeeCompany
 )
 from employees.services import EmployeeCreator
+from users.models import User
 
 
 class EmployeeToolKit:
@@ -55,3 +56,13 @@ class EmployeeToolKit:
             return employee_job
         else:
             return False
+
+    @classmethod
+    def delete_employee(cls, id):
+        if Employee.objects.filter(id=id).exists():
+            employee = Employee.objects.get(id=id)
+            user = User.objects.get(employee=employee)
+            user.is_active = False
+            user.save()
+        else:
+            raise Employee.DoesNotExist()

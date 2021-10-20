@@ -7,6 +7,7 @@ from companies.services import (
     CompanyOfficeCreator
 )
 from employees.models import Employee
+from users.models import User
 
 
 class CompanyToolKit:
@@ -21,7 +22,10 @@ class CompanyToolKit:
     @classmethod
     def delete_company(cls, id):
         if Company.objects.filter(id=id).exists():
-            Company.objects.filter(id=id).delete()
+            company = Company.objects.get(id=id)
+            user = User.objects.get(company=company)
+            user.is_active = False
+            user.save()
         else:
             raise Company.DoesNotExist()
 

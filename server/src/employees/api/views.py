@@ -50,6 +50,14 @@ class EmployeeViewSet(viewsets.ModelViewSet):
         serializer = EmployeeSerializer(instance=employee)
         return Response(serializer.data, status=201)
 
+    def delete(self, request, id):
+        try:
+            EmployeeToolKit.delete_employee(id=id)
+        except Employee.DoesNotExist:
+            return Response({"error": EmployeeErrorMessages.EMPLOYEE_DOES_NOT_EXISTS.value}, status=400)
+
+        return Response({"error": f"Employee with id - {id} was deleted"})
+
 
 class EmployeeSkillViewSet(viewsets.ModelViewSet):
     queryset = EmployeeSkill.objects.all()
