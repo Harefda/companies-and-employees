@@ -18,7 +18,7 @@ class EmployeeCreator:
         self.age = age
 
     def __call__(self):
-        if self.allowed_to_create():
+        if self.allowed_to_create(raise_exception=True):
             return self.create_employee()
 
     def create_employee(self):

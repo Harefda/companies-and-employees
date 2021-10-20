@@ -1,3 +1,4 @@
+from django.db import models
 from django.db.models import fields
 from rest_framework import serializers
 
@@ -38,3 +39,17 @@ class CompanyEmployeeSerializer(serializers.ModelSerializer):
             'company',
             'position'
         ]
+
+
+class CompanyEmployeesAmountSerializer(serializers.ModelSerializer):
+    employees_amount = serializers.SerializerMethodField()
+
+    class Meta:
+        model = EmployeeCompany
+        fields = [
+            'employees_amount'
+        ]
+
+    def get_employees_amount(self, obj):
+        employees_amount = len(obj)
+        return employees_amount
