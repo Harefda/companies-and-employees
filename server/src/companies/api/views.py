@@ -1,5 +1,4 @@
-from django.db.models import manager
-from rest_framework import serializers, viewsets
+from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import IsAdminUser
 
@@ -13,7 +12,7 @@ from app.errors import ObjectAlreadyExists, ValidationError
 from companies.services import CompanyToolKit
 from companies.models import Company, CompanyOffice
 from companies.utils import CompanyErrorMessages
-from employees.models import Employee, EmployeeCompany
+from employees.models import EmployeeCompany
 
 
 class CompanyViewSet(viewsets.ModelViewSet):
@@ -22,6 +21,9 @@ class CompanyViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminUser]
 
     def create(self, request):
+        """
+        api for creating company
+        """
         data = request.POST or request.data
 
         try:
@@ -44,6 +46,9 @@ class CompanyViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=201)
 
     def delete(self, request, id):
+        """
+        api for deleting company
+        """
         try:
             CompanyToolKit.delete_company(id=id)
         except Company.DoesNotExist:
@@ -52,6 +57,9 @@ class CompanyViewSet(viewsets.ModelViewSet):
         return Response({"success": f"Company with id - {id} was deleted"})
         
     def get_employees(self, request):
+        """
+        api to get employees of company
+        """
         try:
             employees = EmployeeCompany.objects.filter(company=request.user.company)
         except KeyError:
@@ -61,6 +69,9 @@ class CompanyViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=201)
 
     def get_amount_of_employees(self, request):
+        """
+        api to get the number of employees of a particular company
+        """
         try:
             employees = EmployeeCompany.objects.filter(company=request.user.company)
         except KeyError:
@@ -76,6 +87,9 @@ class CompanyOfficeViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminUser]
 
     def create(self, request):
+        """
+        api to create office of company
+        """
         data = request.POST or request.data
 
         try:
@@ -98,6 +112,9 @@ class CompanyOfficeViewSet(viewsets.ModelViewSet):
         return Response(serializer.data, status=201)
 
     def delete(self, request):
+        """
+        api to delete office of company
+        """
         data = request.POST or request.data
         try:
             company = request.user.company
