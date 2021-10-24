@@ -10,6 +10,9 @@ from employees.api.views import (
 
 router = routers.DefaultRouter()
 router.register(r"employees-api", EmployeeViewSet)
+router.register(r"employees-api", EmployeeLanguageViewSet)
+router.register(r"employees-api", EmployeeSkillViewSet)
+router.register(r"employees-api", EmployeeCompanyViewSet)
 
 app_name = "employees"
 urlpatterns = [
