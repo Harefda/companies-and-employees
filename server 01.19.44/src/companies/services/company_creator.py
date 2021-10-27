@@ -12,7 +12,7 @@ class CompanyCreator:
         self.user = user
 
     def __call__(self):
-        if self.allowed_to_create(raise_exception=True):
+        if self.allowed_to_create:
             return self.create()
         else:
             return False
@@ -34,3 +34,18 @@ class CompanyCreator:
                 return False
 
         return True
+
+
+class CompanyOfficeCreator:
+    def __init__(self, company, location):
+        self.company = company
+        self.location = location
+
+    def __call__(self):
+        return self.create()
+
+    def create(self):
+        return CompanyOffice.objects.create(
+            company=self.company,
+            location=self.location
+        )
