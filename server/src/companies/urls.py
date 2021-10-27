@@ -8,7 +8,7 @@ from companies.api.views import (
 
 
 router = routers.DefaultRouter()
-router.register(r"companies-api", CompanyViewSet, basename="companies")
+router.register(r"companies-api", viewset=CompanyViewSet, basename="company")
 router.register(r"company_offices-api", CompanyOfficeViewSet)
 
 app_name = "companies"

@@ -1,18 +1,20 @@
 import json
 import pytest
-from unittest import TestCase
-from django.http import response
-from django.test import Client
 from django.urls import reverse
+from companies.models import Company
 
 
-@pytest.mark.django_db
-class TestGetCompnaies(TestCase):
-    
-    def setUp(self) -> None:
-        self.client = Client()
-        self.companies_url = reverse("companies-list")
+pytestmark = [pytest.mark.django_db]
+companies_url = reverse("companies:company-list")
 
-    def test_get_companies(self):
-        response = self.client.get(self.companies_url)
-        self.assertEqual(response.status_code, 200)
+def test_get_company_api(client, django_user_model):
+    user = django_user_model.objects.create_user(email='test@mail.ru', password='test', is_admin=True, is_staff=True)
+    client.force_login(user)
+    client.login(email='test@mail.ru', password='test')
+    test_company = Company.objects.create(name="Test Company")
+    response = client.get(companies_url)
+    response_content = json.loads(response.content)[0]
+    assert response.status_code == 200
+    assert response_content.get("name") == test_company.name
+
+    test_company.delete()

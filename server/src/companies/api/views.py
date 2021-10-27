@@ -18,7 +18,6 @@ from employees.models import EmployeeCompany
 class CompanyViewSet(viewsets.ModelViewSet):
     queryset = Company.objects.all()
     serializer_class = CompanySerializer
-    permission_classes = [IsAdminUser]
 
     def create(self, request):
         """
