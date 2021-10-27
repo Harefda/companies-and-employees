@@ -16,6 +16,6 @@ urlpatterns = [
     path('', include(router.urls)),
     path('create/', CompanyViewSet.as_view({'post': 'create'}), name='company-create'),
     path('<int:id>/delete/', CompanyViewSet.as_view({'delete': 'delete'}), name='company-delete'),
-    path('employees/amount/get', CompanyViewSet.as_view({'get': 'get_amount_of_employees'}), name='company_employees_amount-get'),
+    path('employees/amount/get/', CompanyViewSet.as_view({'get': 'get_amount_of_employees'}), name='company_employees_amount-get'),
     path('employees/get/', CompanyViewSet.as_view({'get': 'get_employees'}), name='company_employees-get'),
 ]
