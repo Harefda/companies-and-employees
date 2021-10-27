@@ -55,3 +55,9 @@ def test_edit_company_api(client, company):
     response_content = json.loads(response.content)
     assert response.status_code == 200
     assert response_content.get("name") == 'New test name'
+
+def test_employees_amount_get(client, company):
+    response = client.get('/company/employees/amount/get/', {'company': company}, content_type='application/json')
+    response_content = json.loads(response.content)
+    assert response.status_code == 201
+    assert response_content.get("employees_amount") == 0
