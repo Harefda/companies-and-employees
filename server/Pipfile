@@ -8,6 +8,7 @@ pytest-django = "*"
 django-test = "*"
 
 [dev-packages]
+mixer = "*"
 
 [requires]
 python_version = "3.9"
