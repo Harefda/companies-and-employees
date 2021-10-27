@@ -4,12 +4,8 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pytest-django = "*"
-django-test = "*"
-django-tests = "*"
 
 [dev-packages]
-mixer = "*"
 
 [requires]
 python_version = "3.9"

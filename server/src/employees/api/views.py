@@ -101,7 +101,7 @@ class EmployeeLanguageViewSet(viewsets.ModelViewSet):
 
     def create(self, request):
         """
-        api to delete employee's language
+        api to create employee's language
         """
         data = request.POST or request.data
 
