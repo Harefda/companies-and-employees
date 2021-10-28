@@ -12,14 +12,18 @@ class UserCreator:
         if self.allowed_to_create():
             user = self.create_user()
             user.save()
+            return user
         else:
             return False
 
     def create_user(self):
-        return User.objects.create(
+        user = User.objects.create(
             email=self.email,
-            password=self.password
         )
+        user.set_password(self.password)
+        user.save()
+        return user
+
 
     def allowed_to_create(self, raise_exception=True):
         try:
